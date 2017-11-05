@@ -12,15 +12,18 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "2048"
   end
-
+  
   config.vm.provision "shell", inline: <<-SHELL
      sudo apt-get update
      sudo apt-get -u dist-upgrade -y
      sudo apt-get install -y --no-install-recommends build-essential bzip2 curl ca-certificates git graphicsmagick python git-core curl
   SHELL
+
   config.vm.provision "shell", :path => "provision/nvm.sh", privileged: false
   config.vm.provision "shell", :path => "provision/meteor.sh", privileged: false
 
+  #setup private network
+  config.vm.network :public_network, ip: "192.168.1.150"
   #setup port forwarding for meteor and others like mongo and tests
   # # meteor
   config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
