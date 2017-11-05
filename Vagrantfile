@@ -13,13 +13,13 @@ Vagrant.configure("2") do |config|
      vb.memory = "2048"
   end
 
-  # config.vm.provision "shell", inline: <<-SHELL
-  #    sudo apt-get update
-  #    sudo apt-get -u dist-upgrade -y
-  #    sudo apt-get install -y --no-install-recommends build-essential bzip2 curl ca-certificates git graphicsmagick python git-core curl
-  # SHELL
-  # config.vm.provision "shell", :path => "provision/nvm.sh", privileged: false
-  # config.vm.provision "shell", :path => "provision/meteor.sh", privileged: false
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update
+     sudo apt-get -u dist-upgrade -y
+     sudo apt-get install -y --no-install-recommends build-essential bzip2 curl ca-certificates git graphicsmagick python git-core curl
+  SHELL
+  config.vm.provision "shell", :path => "provision/nvm.sh", privileged: false
+  config.vm.provision "shell", :path => "provision/meteor.sh", privileged: false
 
   #setup port forwarding for meteor and others like mongo and tests
   # # meteor
