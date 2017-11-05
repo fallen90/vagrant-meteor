@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", :path => "provision/nvm.sh", privileged: false
   config.vm.provision "shell", :path => "provision/meteor.sh", privileged: false
 
-  #setup private network
+  #setup static ip
   config.vm.network :public_network, ip: "192.168.1.150"
   #setup port forwarding for meteor and others like mongo and tests
   # # meteor
@@ -31,4 +31,8 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 3005, host: 3005, auto_correct: true
   # # meteor mongo
   config.vm.network :forwarded_port, guest: 3001, host: 3001, auto_correct: true
+
+  #synced folders
+  config.vm.synced_folder "/c/Users/falle/Desktop/1day/", "/home/ubuntu/app",
+    owner: "ubuntu", group: "ubuntu"
 end
